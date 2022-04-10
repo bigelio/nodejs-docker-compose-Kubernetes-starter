@@ -1,0 +1,10 @@
+const express=require("express")
+const morgan=require("morgan")
+const router=require("./src/routes/index")
+const server=express()
+server.use(express.json())
+server.use(express.urlencoded({extended:true}))
+server.use(morgan("tiny"))
+server.use("/api",router)
+
+server.listen(process.env.PORT || 4001,()=>console.debug(`Hello client, I can hear you and listening on port ${process.env.PORT || 4001}`))
