@@ -1,2 +1,7 @@
 # nodejs-docker-compose-Kubernetes-starter
-Nodejs, nextjs, express, docker, docker-compose, postgres, mongodb, and Kubernetes starter project. 
+## Prerequisities
+Docker application installed
+## Running application
+`docker-compose up`
+## Stoping application
+`docker-compose down`
