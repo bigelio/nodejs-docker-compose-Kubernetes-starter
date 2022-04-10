@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+    # pull postgres image
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      # api configs
+  server:
+    container_name: blogs-api
+    restart: on-failure
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '81:4001'
+    depends_on:
+    - postgres
+    env_file:
+      - ./.env
+      # client app configs
+  client:
+    container_name: blogs-client-app
+    restart: on-failure
+    build: 
+      context: ./client-blogs-app
+      dockerfile: Dockerfile
+    ports:
+      - '82:3000'
+    depends_on:
+    - server
+    volumes:
+      - ./client-blogs-app:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    env_file:
+      - ./.env
+      # nginx configs
+  nginx:
+    container_name: nginx-image
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+    - '83:83'
+    depends_on:
+    - server
+    - client
+volumes:
+  postgres:
+    name: blogs

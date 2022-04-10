@@ -69,6 +69,7 @@
 /api/.yarn-integrity
 
 # dotenv environment variables file
+.env
 /api/.env
 /api/.env.test
 
