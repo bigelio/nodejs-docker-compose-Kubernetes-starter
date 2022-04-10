@@ -3,5 +3,5 @@
 Docker application installed
 ## Running application
 `docker-compose up`
-## Stoping application
+## Stopping application
 `docker-compose down`
